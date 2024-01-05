@@ -1,0 +1,80 @@
+[project]
+# https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
+name = "xtf"
+description = "Xen Test Framework"
+requires-python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
+license = {file = "COPYING"}
+keywords = ["xen", "xen-project"]
+authors = [
+    {name = "Andrew Cooper"},
+]
+maintainers = [
+    {name = "Andrew Cooper"},
+]
+readme = "README"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: System :: Virtualization",
+]
+dependencies = [
+    "pytest",
+]
+[project.optional-dependencies]
+test = [
+    "pytest-cov",
+    "typing_extensions"
+]
+coverage = [
+    "coverage[toml]",
+    "diff_cover"
+]
+
+[project.urls]
+homepage = "https://github.com/andyhhp/xtf/"
+repository = "git://xenbits.xen.org/xtf.git"
+
+[tool.black]
+line-length = 80
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+pretty = true
+show_error_context = true
+error_summary = true
+files = ["xtf-runner", "build/*.py", "tests/python/test_*.py"]
+mypy_path = "stubs"
+python_version = "3.10"
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+disallow_any_unimported = true
+disallow_any_explicit = false
+disallow_any_generics = true
+disallow_subclassing_any = true
+show_error_codes = true
+strict_equality = true
+# Check the contents of untyped functions in all modules by default:
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["xtf-runner"]
+disable_error_code = ["name-defined", "assignment"]
+# warn_unreachable = false
+
+[tool.coverage.run]
+# The coverage-comment-action needs a .coverage file with relative path names:
+# https://github.com/py-cov-action/python-coverage-comment-action#setup
+relative_files = true
